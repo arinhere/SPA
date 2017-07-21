@@ -1,0 +1,55 @@
+<h1>Posts</h1>
+
+    <label for="Instruction" style="font-size: 13px"> 
+        I used a free API for this. You can find it at <a href="https://jsonplaceholder.typicode.com/posts" target="_blank">here</a>.
+        This page is showing about getting data from an API and also showcasing how to display multiple contents in a same page without refreshing it.
+    </label><br/><br/>
+
+
+    <div *ngIf="isloading">
+         <i class="fa fa-spinner fa-spin fa-3x"></i>
+    </div>
+
+    <div class="panel panel-default col-md-6">
+        <ul class="list-group">
+            <li class="list-group-item">
+                Filter result:<br/><br/>
+                <select #drpuser id="userList" class="form-control" (change)="onChange(drpuser.value)">
+                    <option value="0">Select...</option>
+                    <option *ngFor="let user of users" value="{{user.id}}">{{ user.name }}</option>
+                </select>
+            </li>
+
+            <li class="list-group-item" style="cursor: pointer" *ngFor="let post of postsData">
+               <a (click)="populate(post.id)">{{ post.title }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-1"></div>
+    
+    <div class="panel panel-default col-md-5" *ngIf="isShowing">        
+        <div class="panel-heading">{{ heading }}</div>
+        <div class="panel-body">
+            {{ content }}
+        </div>
+
+        <h4>Comments</h4>
+
+        <div *ngIf="showComments">
+            <i class="fa fa-spinner fa-spin fa-3x"></i>
+        </div>
+
+        <div class="media" *ngFor="let comment of comments">
+            <div class="media-left media-middle">
+                <a href="#">
+                    <img class="media-object" style="border-radius: 100%" src="http://lorempixel.com/80/80/people?random=1" alt="...">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ comment.name }}</h4>
+                {{ comment.body }}
+            </div>
+        </div>
+
+    </div>

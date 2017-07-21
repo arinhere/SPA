@@ -1,0 +1,45 @@
+<div class="row" style="padding-left: 20px; padding-bottom: 20px;">
+    <div *ngIf="notify_success" class="alert alert-success col-md-6">{{ message }}</div>
+    <div *ngIf="notify_error" class="alert alert-danger col-md-6">{{ message }}</div>
+    
+    <div class="col-md-6" style="background-color: #e3e3e3; clear: both">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" #login="ngForm">
+            <fieldset>
+                <legend>Login </legend>
+                <label for="Instruction" style="font-size: 11px">Use [ arinhere / admin ]. 
+                    Login has been verified from server side code which is currently written in PHP. 
+                    Once login is successful session state is being saved and controlled from angular. 
+                    Effect of login can be verified in users section. So check using both login and logout state.</label><br/><br/>
+                <div class="form-group">                    
+                    <label for="Name">Username</label>
+                    <input type="text" class="form-control"
+                    placeholder="e.g. arinhere"
+                    formControlName='fname'
+                    >
+                    
+                    <div class="alert alert-danger" *ngIf="fname.touched && fname.invalid">
+                        <div *ngIf="fname.errors.required">
+                            Username Required
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">                    
+                    <label for="Password">Password</label>
+                    <input type="password" class="form-control"
+                    placeholder="e.g. *****"
+                    formControlName='pw'
+                    >
+                    
+                    <div class="alert alert-danger" *ngIf="pw.touched && pw.invalid">
+                        <div *ngIf="pw.errors.required">
+                            Password Required
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit" [disabled]="!login.form.valid">Login</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

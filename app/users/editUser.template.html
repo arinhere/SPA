@@ -1,0 +1,115 @@
+<div class="row" style="padding-left: 20px; padding-bottom: 20px;">
+
+    <label for="Instruction" style="font-size: 13px"> 
+        I used a free API for this. You can find it at <a href="https://jsonplaceholder.typicode.com/users" target="_blank">here</a>.
+        This page is showing about updating data in an API. 
+    </label><br/><br/>
+
+    <div *ngIf="notify" class="alert alert-success col-md-6">{{ message }}</div>
+    
+    <div class="col-md-6" style="background-color: #e3e3e3">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" #edit="ngForm">
+            <fieldset>
+                <legend>User</legend>
+                <div class="form-group">                    
+                    <label for="Username">Username</label>
+                    <input type="text" class="form-control"
+                    placeholder="e.g. arinhere"
+                    formControlName='username' [(ngModel)]="user.username"
+                    >  
+
+                    <div class="alert alert-danger" *ngIf="form.get('username').touched && form.get('username').invalid">
+                        <div *ngIf="form.get('username').errors.required">
+                            Username Required
+                        </div>
+
+                        <div *ngIf="form.get('username').errors.minlength">
+                            Should be at least 5 characters
+                        </div>
+
+                        <div *ngIf="form.get('username').errors.nospace">
+                            Username cannot contain space
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <input type="text" class="form-control" 
+                    formControlName="mail" [(ngModel)]="user.email"
+                    >
+                    <div class="alert alert-danger" *ngIf="form.get('mail').touched && form.get('mail').invalid">
+                        <div *ngIf="form.get('mail').errors.required">
+                            Email ID Required       
+                        </div>
+
+                        <div *ngIf="form.get('mail').invalid">
+                            Invalid email address        
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Phone">Phone</label>
+                    <input type="numbers" class="form-control" 
+                    formControlName="phone" [(ngModel)]="user.phone"
+                    >
+                </div>
+
+                <div class="alert alert-danger" *ngIf="form.get('phone').touched && form.get('phone').invalid">
+                    <div *ngIf="form.get('phone').errors.required">
+                        Phone number required           
+                    </div>
+
+                    <div *ngIf="form.get('phone').errors.minlength">
+                        Must be 10 digits      
+                    </div>
+
+                    <div *ngIf="form.get('phone').errors.maxlength">
+                        Must be 10 digits      
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Address</legend>
+                <div class="form-group">                    
+                    <label for="Street">Street</label>
+                    <input type="text" class="form-control" 
+                    formControlName="street" [(ngModel)]="user.address.street"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="Suite">Suite</label>
+                    <input type="text" class="form-control" 
+                    formControlName="suite" [(ngModel)]="user.address.suite"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" 
+                    formControlName="city" [(ngModel)]="user.address.city"
+                    >
+                    <div class="alert alert-danger" *ngIf="form.get('city').touched && form.get('city').invalid">
+                        <div *ngIf="form.get('city').errors.required">
+                            City required           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zip">Zip Code</label>
+                    <input type="text" class="form-control" 
+                    formControlName="zipcode" [(ngModel)]="user.address.zipcode"
+                    >
+                </div>
+
+                <div class="alert alert-danger" *ngIf="form.get('zipcode').touched && form.get('zipcode').errors">
+                    <div *ngIf="form.get('zipcode').errors.required">
+                        Zipcode required           
+                    </div>
+                </div>
+            </fieldset>
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
